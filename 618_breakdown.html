@@ -1221,7 +1221,9 @@ table .neutral { color: var(--text-muted); }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(edits));
     const count = Object.keys(edits).length;
     statusSpan.textContent = '✅ 已保存 ' + count + ' 处修改';
-    setTimeout(() => { if (!isEditMode) statusSpan.textContent = ''; }, 2000);
+    // 自动退出编辑模式，恢复为正常阅读状态
+    editToggle.checked = false;
+    setEditMode(false);
   });
 
   // Reset edits
