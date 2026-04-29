@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>2026年618天猫大促目标拆解 | 芙清CRM</title>
 <style>
 :root {
@@ -366,787 +367,611 @@ table .neutral { color: var(--text-muted); }
 </style>
 </head>
 <body>
-
 <!-- 编辑控制栏 -->
 <div id="edit-bar" style="position:fixed;top:16px;right:16px;z-index:9999;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:10px 16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.15);border:1px solid #DADCE0;font-size:13px;">
-  <span style="font-weight:700;color:#1A73E8;">✏️ 编辑模式</span>
-  <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
-    <input type="checkbox" id="edit-toggle" style="cursor:pointer;">
-    <span>开启</span>
-  </label>
-  <button id="btn-save" style="display:none;padding:4px 12px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">💾 保存</button>
-  <button id="btn-reset" style="display:none;padding:4px 12px;background:#D93025;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↩️ 重置</button>
-  <button id="btn-export" style="padding:4px 12px;background:#F9AB00;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">📋 导出修改</button>
-  <span id="edit-status" style="font-size:11px;color:#80868B;margin-left:4px;"></span>
+<span style="font-weight:700;color:#1A73E8;">✏️ 编辑模式</span>
+<label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+<input id="edit-toggle" style="cursor:pointer;" type="checkbox"/>
+<span>开启</span>
+</label>
+<button id="btn-save" style="display:none;padding:4px 12px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">💾 保存</button>
+<button id="btn-reset" style="display:none;padding:4px 12px;background:#D93025;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↩️ 重置</button>
+<button id="btn-export" style="padding:4px 12px;background:#F9AB00;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">📋 导出修改</button>
+<span id="edit-status" style="font-size:11px;color:#80868B;margin-left:4px;"></span>
 </div>
-
 <!-- 导出弹窗 -->
 <div id="export-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000;align-items:center;justify-content:center;">
-  <div style="background:#fff;padding:24px;border-radius:12px;max-width:600px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,0.2);">
-    <div style="font-weight:700;font-size:16px;margin-bottom:12px;">📋 复制以下内容发给我</div>
-    <textarea id="export-textarea" style="width:100%;height:200px;font-family:monospace;font-size:12px;border:1px solid #DADCE0;border-radius:6px;padding:8px;resize:none;" readonly></textarea>
-    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
-      <button id="btn-copy" style="padding:6px 16px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;">📋 复制到剪贴板</button>
-      <button id="btn-close-modal" style="padding:6px 16px;background:#E8EAED;color:#333;border:none;border-radius:6px;cursor:pointer;font-size:13px;">关闭</button>
-    </div>
-  </div>
+<div style="background:#fff;padding:24px;border-radius:12px;max-width:600px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+<div style="font-weight:700;font-size:16px;margin-bottom:12px;">📋 复制以下内容发给我</div>
+<textarea id="export-textarea" readonly="" style="width:100%;height:200px;font-family:monospace;font-size:12px;border:1px solid #DADCE0;border-radius:6px;padding:8px;resize:none;"></textarea>
+<div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
+<button id="btn-copy" style="padding:6px 16px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;">📋 复制到剪贴板</button>
+<button id="btn-close-modal" style="padding:6px 16px;background:#E8EAED;color:#333;border:none;border-radius:6px;cursor:pointer;font-size:13px;">关闭</button>
 </div>
-
+</div>
+</div>
 <div class="container">
-
-  <!-- ===== BANNER ===== -->
-  <div class="banner">
-    <div class="badge">📊 大促目标拆解</div>
-    <h1>2026年618天猫大促目标拆解</h1>
-    <div class="subtitle">数据口径：剔购物金 | 时间窗口：2026年5月6日 – 2026年6月20日</div>
-    <div class="meta-row">
-      <div class="meta-item"><span class="icon">🏷️</span> 品牌：芙清</div>
-      <div class="meta-item"><span class="icon">📅</span> 制表日期：2026-04-28</div>
-      <div class="meta-item"><span class="icon">🔄</span> 参考基准：Y25 618 / D11 / Q1</div>
-      <div class="meta-item"><span class="icon">👤</span> 负责人：CRM运营团队</div>
-    </div>
-  </div>
-
-  <!-- ===== EXECUTIVE SUMMARY ===== -->
-  <div class="section">
-    <div class="section-header">
-      <span style="font-size:24px;">📌</span>
-      <span class="step-title">核心结论</span>
-    </div>
-
-    <div class="insight-box warning">
-      <div class="title">⚠️ 目标 ¥3,991万，YOY+0.8% — 达成有压力，需主动干预</div>
-      <div class="desc">
-        预估全店GSV <b>¥3,991万</b>（vs Y25 618 ¥3,959万），增幅仅 0.8%。核心矛盾：<b>人数萎缩</b>（-8.7%）vs <b>客单价提升</b>（+10.4%）。增长完全依赖AUS（客单价）拉动而非人群扩大，结构脆弱。老客回购率从 2.57% 降至 2.16%（购物金剔除影响），新客人数预估下降 15.8%。<b>关键变量</b>：回购率能否稳住 + 达播能否爆发。
-      </div>
-    </div>
-
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="label">全店GSV目标</div>
-        <div class="value">¥3,991万</div>
-        <div class="change up">▲ 0.8% vs Y25</div>
-        <div class="note">Y24: ¥2,301万 (+73.4%)</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">老客GSV</div>
-        <div class="value">¥1,744万</div>
-        <div class="change up">▲ 11.0% vs Y25</div>
-        <div class="note">占比 43.7% | 回购率 2.16%</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">新客GSV</div>
-        <div class="value">¥2,247万</div>
-        <div class="change down">▼ 5.9% vs Y25</div>
-        <div class="note">占比 56.3% | 人数 -15.8%</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">会员GSV</div>
-        <div class="value">¥2,232万</div>
-        <div class="change down">▼ 13.4% vs Y25</div>
-        <div class="note">占比 55.9% | 需56%入会率</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== STEP 1: 拍目标 ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-num">1</div>
-      <span class="step-title">拍目标：总目标 vs 历史对标</span>
-      <span class="step-sub">Step 1 / 5</span>
-    </div>
-
-    <div class="data-table-wrap">
-      <div class="table-title">📋 全店总目标概览</div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>指标</th>
-              <th>Y26 618预估</th>
-              <th>Y25 618</th>
-              <th>Y24 618</th>
-              <th>YOY(Y25)</th>
-              <th>25 vs 24</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>全店GSV</b></td>
-              <td class="num">¥39,909,904</td>
-              <td class="num">¥39,589,458</td>
-              <td class="num">¥23,011,199</td>
-              <td class="num up">+0.8%</td>
-              <td class="num up">+72.0%</td>
-            </tr>
-            <tr>
-              <td><b>全店人数</b></td>
-              <td class="num">196,788</td>
-              <td class="num">215,486</td>
-              <td class="num">220,380</td>
-              <td class="num down">-8.7%</td>
-              <td class="num down">-2.2%</td>
-            </tr>
-            <tr>
-              <td><b>全店AUS</b></td>
-              <td class="num">¥202.8</td>
-              <td class="num">¥183.7</td>
-              <td class="num">¥104.4</td>
-              <td class="num up">+10.4%</td>
-              <td class="num up">+76.0%</td>
-            </tr>
-            <tr>
-              <td>老客GSV</td>
-              <td class="num">¥17,436,331</td>
-              <td class="num">¥15,703,489</td>
-              <td class="num">¥10,560,503</td>
-              <td class="num up">+11.0%</td>
-              <td class="num up">+48.7%</td>
-            </tr>
-            <tr>
-              <td>老客占比</td>
-              <td class="num">43.7%</td>
-              <td class="num">39.7%</td>
-              <td class="num">45.9%</td>
-              <td class="num up">+4.0pp</td>
-              <td class="num down">-6.2pp</td>
-            </tr>
-            <tr>
-              <td>新客GSV</td>
-              <td class="num">¥22,473,573</td>
-              <td class="num">¥23,885,969</td>
-              <td class="num">¥12,450,697</td>
-              <td class="num down">-5.9%</td>
-              <td class="num up">+91.8%</td>
-            </tr>
-            <tr>
-              <td>会员GSV</td>
-              <td class="num">¥22,318,539</td>
-              <td class="num">¥25,758,783</td>
-              <td class="num">¥13,556,081</td>
-              <td class="num down">-13.4%</td>
-              <td class="num up">+90.0%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col2">
-      <div class="insight-box info">
-        <div class="title">📈 增长逻辑：AUS驱动，非人群驱动</div>
-        <div class="desc">全店人数从 21.5万 → 19.7万（-8.7%），但AUS从 ¥183.7 → ¥202.8（+10.4%）。增长引擎由"卖更多货"变为"卖更贵的货"，需要在商品组合和客单价提升上持续发力。</div>
-      </div>
-      <div class="insight-box warning">
-        <div class="title">⚠️ 会员贡献承压</div>
-        <div class="desc">会员GSV同比下降 13.4%，占比从 65.1% → 55.9%。目标需<b>56%入会率</b>支撑。购物金剔除对会员GSV口径影响显著。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== STEP 2: 做预估 ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-num">2</div>
-      <span class="step-title">做预估：老客 · 新客 · 会员三维拆解</span>
-      <span class="step-sub">Step 2 / 5</span>
-    </div>
-
-    <!-- New Customer Breakdown -->
-    <div class="data-table-wrap">
-      <div class="table-title">🆕 新客渠道拆解 — 26年618预估</div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>渠道</th>
-              <th>预估GSV</th>
-              <th>预估人数</th>
-              <th>人数增长率</th>
-              <th>预估AUS</th>
-              <th>AUS增长率</th>
-              <th>参考逻辑</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>货架</b></td>
-              <td class="num">¥5,771,486</td>
-              <td class="num">29,599</td>
-              <td class="num down">-12.5%</td>
-              <td class="num">¥195.0</td>
-              <td class="num up">+6.2%</td>
-              <td><span class="tag tag-orange">参考Q1·下滑</span></td>
-            </tr>
-            <tr>
-              <td><b>达播</b></td>
-              <td class="num">¥9,171,877</td>
-              <td class="num">15,514</td>
-              <td class="num">持平</td>
-              <td class="num">¥591.2</td>
-              <td class="num">持平</td>
-              <td><span class="tag tag-blue">持平去年</span></td>
-            </tr>
-            <tr>
-              <td><b>直播(店播)</b></td>
-              <td class="num">¥2,045,090</td>
-              <td class="num">7,928</td>
-              <td class="num down">-12.6%</td>
-              <td class="num">¥258.0</td>
-              <td class="num up">+14.9%</td>
-              <td><span class="tag tag-orange">参考Q1·下滑</span></td>
-            </tr>
-            <tr>
-              <td><b>淘客</b></td>
-              <td class="num">¥4,845,629</td>
-              <td class="num">35,967</td>
-              <td class="num down">-9.1%</td>
-              <td class="num">¥134.7</td>
-              <td class="num down">-7.2%</td>
-              <td><span class="tag tag-orange">参考Q1/D11·下滑</span></td>
-            </tr>
-            <tr>
-              <td>微博</td>
-              <td class="num">¥525,054</td>
-              <td class="num">1,299</td>
-              <td class="num up">+3.3%</td>
-              <td class="num">¥404.2</td>
-              <td class="num">持平</td>
-              <td><span class="tag tag-green">微增</span></td>
-            </tr>
-            <tr>
-              <td>U先派样</td>
-              <td class="num">¥110,487</td>
-              <td class="num">17,678</td>
-              <td class="num down">-38.5%</td>
-              <td class="num">¥6.3</td>
-              <td class="num">持平</td>
-              <td><span class="tag tag-red">大幅下滑</span></td>
-            </tr>
-            <tr>
-              <td>百补派样</td>
-              <td class="num">¥3,949</td>
-              <td class="num">175</td>
-              <td class="num down">-89.1%</td>
-              <td class="num">¥22.6</td>
-              <td class="num">持平</td>
-              <td><span class="tag tag-red">大幅下滑</span></td>
-            </tr>
-            <tr style="font-weight:700;background:#F8F9FA;">
-              <td><b>新客TTL</b></td>
-              <td class="num"><b>¥22,473,573</b></td>
-              <td class="num"><b>108,160</b></td>
-              <td class="num down"><b>-15.8%</b></td>
-              <td class="num"><b>¥207.8</b></td>
-              <td class="num up"><b>+11.8%</b></td>
-              <td><span class="tag tag-orange">参考D11·无购物金</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Old Customer RFM -->
-    <div class="data-table-wrap">
-      <div class="table-title">👴 老客拆解：按购买时间窗口（R区间）— 26年618预估</div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>R区间</th>
-              <th>2026历史人数</th>
-              <th>预估回购人数</th>
-              <th>预估回购率</th>
-              <th>回购GSV</th>
-              <th>GSV占比</th>
-              <th>预估AUS</th>
-              <th>购物金下线后<br>回购率趋势</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>近1个月已购</b></td>
-              <td class="num">115,725</td>
-              <td class="num">15,789</td>
-              <td class="num">13.64%</td>
-              <td class="num">¥3,792,778</td>
-              <td class="num">21.8%</td>
-              <td class="num">¥240.2</td>
-              <td class="num down">-8.5%</td>
-            </tr>
-            <tr>
-              <td><b>近2-3个月已购</b></td>
-              <td class="num">190,100</td>
-              <td class="num">18,322</td>
-              <td class="num">9.64%</td>
-              <td class="num">¥5,113,342</td>
-              <td class="num">29.3%</td>
-              <td class="num">¥279.1</td>
-              <td class="num down">-28.9%</td>
-            </tr>
-            <tr>
-              <td>近4-6个月已购</td>
-              <td class="num">226,306</td>
-              <td class="num">12,539</td>
-              <td class="num">5.54%</td>
-              <td class="num">¥2,166,943</td>
-              <td class="num">12.4%</td>
-              <td class="num">¥172.8</td>
-              <td class="num down">-27.1%</td>
-            </tr>
-            <tr>
-              <td>近7-12个月已购</td>
-              <td class="num">505,177</td>
-              <td class="num">17,799</td>
-              <td class="num">3.52%</td>
-              <td class="num">¥2,518,614</td>
-              <td class="num">14.4%</td>
-              <td class="num">¥141.5</td>
-              <td class="num down">-21.9%</td>
-            </tr>
-            <tr>
-              <td>近13-24个月已购</td>
-              <td class="num">922,924</td>
-              <td class="num">12,053</td>
-              <td class="num">1.31%</td>
-              <td class="num">¥1,905,023</td>
-              <td class="num">10.9%</td>
-              <td class="num">¥158.1</td>
-              <td class="num up">+0.6%</td>
-            </tr>
-            <tr>
-              <td>2年外已购</td>
-              <td class="num">2,172,981</td>
-              <td class="num">12,127</td>
-              <td class="num">0.56%</td>
-              <td class="num">¥1,939,631</td>
-              <td class="num">11.1%</td>
-              <td class="num">¥159.9</td>
-              <td class="num up">+3.7%</td>
-            </tr>
-            <tr style="font-weight:700;background:#F8F9FA;">
-              <td><b>已购客TTL</b></td>
-              <td class="num"><b>4,112,655</b></td>
-              <td class="num"><b>88,629</b></td>
-              <td class="num"><b>2.16%</b></td>
-              <td class="num"><b>¥17,436,331</b></td>
-              <td class="num"><b>100%</b></td>
-              <td class="num"><b>¥180.5</b></td>
-              <td class="num down"><b>-17.8%</b></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="insight-box danger">
-      <div class="title">🔴 核心风险：回购率从 2.57% → 2.16%，Gap = ¥666,041</div>
-      <div class="desc">
-        如果回购率不掉（按25年618同口径），老客GSV可达 <b>¥1,810万</b>，比当前预估多 <b>¥66.6万</b>。购物金下线是大促回购率下降的核心原因。关键策略：<b>加大CRM触达轮次</b>，用offer深度（优惠券/赠品/会员权益）弥补购物金的蓄水功能缺失。
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== STEP 3: 找Gap ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-num">3</div>
-      <span class="step-title">找Gap：人群·渠道·回购率三维缺口</span>
-      <span class="step-sub">Step 3 / 5</span>
-    </div>
-
-    <div class="col2">
-      <div class="data-table-wrap">
-        <div class="table-title">📊 人群维度Gap</div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr><th>维度</th><th>目标</th><th>预估</th><th>Gap</th><th>达成度</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>全店GSV</td>
-                <td class="num">¥3,991万</td>
-                <td class="num">¥3,991万</td>
-                <td class="num">—</td>
-                <td><span class="tag tag-green">100%</span></td>
-              </tr>
-              <tr>
-                <td>老客GSV</td>
-                <td class="num">¥1,744万</td>
-                <td class="num">¥1,810万*</td>
-                <td class="num up">+¥66万</td>
-                <td><span class="tag tag-green">可超额</span></td>
-              </tr>
-              <tr>
-                <td>新客GSV</td>
-                <td class="num">¥2,247万</td>
-                <td class="num">¥2,247万</td>
-                <td class="num">—</td>
-                <td><span class="tag tag-orange">达标线</span></td>
-              </tr>
-              <tr>
-                <td>新客人数</td>
-                <td class="num">10.8万</td>
-                <td class="num">10.8万</td>
-                <td class="num">—</td>
-                <td><span class="tag tag-red">低于Y25</span></td>
-              </tr>
-              <tr style="background:#FEF7E0;">
-                <td>会员占比</td>
-                <td class="num">55.9%</td>
-                <td class="num">55.9%</td>
-                <td class="num">—</td>
-                <td><span class="tag tag-orange">需56%入会率</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="data-table-wrap">
-        <div class="table-title">📊 渠道维度Gap</div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr><th>渠道</th><th>预估GSV</th><th>Y25 GSV</th><th>Gap vs Y25</th><th>风险</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>货架</td><td class="num">¥577万</td><td class="num">¥621万</td><td class="num down">-¥44万</td><td><span class="tag tag-orange">中</span></td>
-              </tr>
-              <tr style="background:#E6F4EA;">
-                <td>达播</td><td class="num">¥917万</td><td class="num">¥917万</td><td class="num">持平</td><td><span class="tag tag-green">低</span></td>
-              </tr>
-              <tr>
-                <td>直播</td><td class="num">¥205万</td><td class="num">¥204万</td><td class="num up">+¥1万</td><td><span class="tag tag-orange">中</span></td>
-              </tr>
-              <tr>
-                <td>淘客</td><td class="num">¥485万</td><td class="num">¥574万</td><td class="num down">-¥90万</td><td><span class="tag tag-red">高</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="col2" style="margin-top:16px;">
-      <div class="insight-box warning">
-        <div class="title">⚠️ 新客人数萎缩 -15.8%</div>
-        <div class="desc">全渠道新客人数普遍下滑。核心原因：购物金剔除后，新客获取口径收窄。货架、淘客增速转负（Q1趋势确认），U先/百补派样大幅收缩（-38.5%/-89.1%）。</div>
-      </div>
-      <div class="insight-box info">
-        <div class="title">💡 老客回购Gap：¥66.6万 = 机会空间</div>
-        <div class="desc">按"假设回购率不掉"计算，老客GSV可额外贡献 ¥66.6万。近1-3个月活跃老客（30.6万人）是核心触达池。提升回购率 0.5pp，即可回补 ¥89万。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== STEP 4: 争机制 ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-num">4</div>
-      <span class="step-title">争机制：三大战场的补Gap策略</span>
-      <span class="step-sub">Step 4 / 5</span>
-    </div>
-
-    <div class="col2">
-      <div class="insight-box success">
-        <div class="title">🎯 战场一：老客回购保卫战（¥66.6万 Gap）</div>
-        <div class="desc">
-          <b>目标</b>：回购率从 2.16% → 2.57%（拉平Y25）<br>
-          <b>策略</b>：<br>
-          • 近1-3月活跃老客（30.6万人）加推2轮触达<br>
-          • 会员专属大额券（满300-50）+ 赠品加码<br>
-          • 购物金蓄水用户二次转化追踪<br>
-          • 达播后老客召回：直播互动用户48h内触达
-        </div>
-      </div>
-
-      <div class="insight-box info">
-        <div class="title">🎯 战场二：达播爆量战（稳 ¥917万，争 ¥1,000万）</div>
-        <div class="desc">
-          <b>目标</b>：达播GSV 持平 ¥917万，争取超额<br>
-          <b>策略</b>：<br>
-          • 提前45天锁定达人排期+机制<br>
-          • 达播前7天：老客预约+优质赠品捆绑<br>
-          • 达播当天：实时监控占比+联动CRM弹窗<br>
-          • 达播后7天：高客单价退货预警+未购召回
-        </div>
-      </div>
-
-      <div class="insight-box warning">
-        <div class="title">🎯 战场三：新客补充战（补 ¥90万 淘客Gap）</div>
-        <div class="desc">
-          <b>目标</b>：淘客GSV 从 ¥485万 → ¥574万（拉平Y25）<br>
-          <b>策略</b>：<br>
-          • 淘客商品T1/T2/T4/TK机制检查+加码<br>
-          • 淘客新客入会率提升（佣金+入会奖励联动）<br>
-          • 百补/U先派样预算重新评估（当前预估暴跌89%/38%）
-        </div>
-      </div>
-
-      <div class="insight-box danger">
-        <div class="title">🎯 战场四：会员渗透战（56%入会率保卫）</div>
-        <div class="desc">
-          <b>目标</b>：会员GSV ¥2,232万（占比 55.9%）<br>
-          <b>策略</b>：<br>
-          • P1 U先派样 → 入会转化链路强化<br>
-          • P5 店播：会员专属价+直播间入会弹窗<br>
-          • P8 货架：首页入会引导+会员日专属权益
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== RFM Benchmark Section ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div style="font-size:24px;">📈</div>
-      <span class="step-title">参考对标：三场大促RFM象限对比</span>
-      <span class="step-sub">历史参考</span>
-    </div>
-
-    <div class="data-table-wrap">
-      <div class="table-title">RFM八象限回购率 | Y25 618 vs Y25 D11 vs Y26 38（最近活动）</div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>象限</th>
-              <th colspan="3">25年618</th>
-              <th colspan="3">25年双11</th>
-              <th colspan="3">26年38节</th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>历史人数</th><th>回购率</th><th>GSV</th>
-              <th>历史人数</th><th>回购率</th><th>GSV</th>
-              <th>历史人数</th><th>回购率</th><th>GSV</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>重要价值</td>
-              <td class="num">28,140</td><td class="num">31.3%</td><td class="num">277.3万</td>
-              <td class="num">27,944</td><td class="num">30.3%</td><td class="num">278.9万</td>
-              <td class="num">28,367</td><td class="num">13.4%</td><td class="num">103.3万</td>
-            </tr>
-            <tr>
-              <td>重要保持</td>
-              <td class="num">77,684</td><td class="num">8.1%</td><td class="num">151.1万</td>
-              <td class="num">97,002</td><td class="num">8.8%</td><td class="num">236.5万</td>
-              <td class="num">113,104</td><td class="num">2.7%</td><td class="num">78.6万</td>
-            </tr>
-            <tr>
-              <td>重要发展</td>
-              <td class="num">10,234</td><td class="num">21.2%</td><td class="num">104.1万</td>
-              <td class="num">11,265</td><td class="num">19.4%</td><td class="num">194.5万</td>
-              <td class="num">10,542</td><td class="num">7.3%</td><td class="num">38.2万</td>
-            </tr>
-            <tr>
-              <td>重要挽留</td>
-              <td class="num">72,059</td><td class="num">3.1%</td><td class="num">73.7万</td>
-              <td class="num">88,694</td><td class="num">3.9%</td><td class="num">160.6万</td>
-              <td class="num">101,004</td><td class="num">1.1%</td><td class="num">48.4万</td>
-            </tr>
-            <tr>
-              <td>一般价值</td>
-              <td class="num">38,193</td><td class="num">15.6%</td><td class="num">73.7万</td>
-              <td class="num">31,141</td><td class="num">13.5%</td><td class="num">52.0万</td>
-              <td class="num">22,744</td><td class="num">8.2%</td><td class="num">15.3万</td>
-            </tr>
-            <tr>
-              <td>一般保持</td>
-              <td class="num">151,997</td><td class="num">4.1%</td><td class="num">73.0万</td>
-              <td class="num">176,128</td><td class="num">3.5%</td><td class="num">78.1万</td>
-              <td class="num">194,981</td><td class="num">1.3%</td><td class="num">21.4万</td>
-            </tr>
-            <tr>
-              <td>一般发展</td>
-              <td class="num">239,686</td><td class="num">7.8%</td><td class="num">316.1万</td>
-              <td class="num">210,710</td><td class="num">6.6%</td><td class="num">254.2万</td>
-              <td class="num">199,153</td><td class="num">3.0%</td><td class="num">78.9万</td>
-            </tr>
-            <tr>
-              <td>一般挽留</td>
-              <td class="num">2,765,442</td><td class="num">1.3%</td><td class="num">498.7万</td>
-              <td class="num">3,057,530</td><td class="num">1.1%</td><td class="num">525.1万</td>
-              <td class="num">3,269,143</td><td class="num">0.4%</td><td class="num">154.5万</td>
-            </tr>
-            <tr style="font-weight:700;background:#F8F9FA;">
-              <td><b>已购客TTL</b></td>
-              <td class="num"><b>3,383,435</b></td><td class="num"><b>2.57%</b></td><td class="num"><b>1,567.7万</b></td>
-              <td class="num"><b>3,700,414</b></td><td class="num"><b>2.19%</b></td><td class="num"><b>1,779.9万</b></td>
-              <td class="num"><b>3,939,038</b></td><td class="num"><b>0.79%</b></td><td class="num"><b>538.5万</b></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="insight-box warning">
-      <div class="title">📉 回购率长期趋势：大促→平销加速下滑</div>
-      <div class="desc">
-        从25年618（2.57%）→ 25年双11（2.19%）→ 26年38节（0.79%），回购率持续走低。38节作为平销活动参考，回购率仅为618的 1/3。618预估回购率 2.16% 已充分考虑大促流量回升效应，但需警惕购物金下线对回购的持续性压制。
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== STEP 5: 落机制 ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="step-num">5</div>
-      <span class="step-title">落机制：618作战倒计时 &amp; 关键行动</span>
-      <span class="step-sub">Step 5 / 5</span>
-    </div>
-
-    <div class="data-table-wrap">
-      <div class="table-title">⏰ 618作战倒计时（T = 5月6日） | 当前：T-7天</div>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr><th>阶段</th><th>时间</th><th>关键动作</th><th>负责人</th><th>状态</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>T-7天</b></td>
-              <td>4/29 – 5/5</td>
-              <td>✅ 确认达播排期&机制 | 广告活动蓄水 | 预售Listing上线</td>
-              <td>运营</td>
-              <td><span class="tag tag-green">就绪</span></td>
-            </tr>
-            <tr>
-              <td><b>T-3天</b></td>
-              <td>5/3 – 5/5</td>
-              <td>✅ CRM触达排期锁定 | 优惠券/赠品物料到位 | 客服团队就位</td>
-              <td>CRM+运营</td>
-              <td><span class="tag tag-green">就绪</span></td>
-            </tr>
-            <tr>
-              <td><b>T日</b></td>
-              <td>5/6</td>
-              <td>🚀 618开卖 | 实时GMV仪表盘 | 每小时广告出价调整</td>
-              <td>全团队</td>
-              <td><span class="tag tag-orange">待定</span></td>
-            </tr>
-            <tr>
-              <td><b>T+1～T+7</b></td>
-              <td>5/7 – 5/13</td>
-              <td>📊 首周数据复盘 | 达播退货率跟踪 | 新客入会引导</td>
-              <td>CRM</td>
-              <td><span class="tag tag-gray">计划中</span></td>
-            </tr>
-            <tr>
-              <td><b>618峰值</b></td>
-              <td>6/15 – 6/20</td>
-              <td>🔥 爆发期 | 直播马拉松 | 闪购节点 | 老客召回最后一击</td>
-              <td>全团队</td>
-              <td><span class="tag tag-gray">计划中</span></td>
-            </tr>
-            <tr>
-              <td><b>T+30</b></td>
-              <td>7月</td>
-              <td>📋 活动复盘 | 退货处理 | 客户留存计划 | 经验总结归档</td>
-              <td>运营+CRM</td>
-              <td><span class="tag tag-gray">计划中</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="col2">
-      <div class="insight-box success">
-        <div class="title">✅ 物资清单</div>
-        <div class="desc">
-          • 会员专享券：满300-50、满600-120<br>
-          • 达播赠品包：3件套小样+面膜*2<br>
-          • CRM触达素材：短信3轮+群消息2轮<br>
-          • 预售定金膨胀：100抵150（限老客）
-        </div>
-      </div>
-      <div class="insight-box info">
-        <div class="title">📋 监控指标（每小时）</div>
-        <div class="desc">
-          • 全店GSV达成率 vs 目标<br>
-          • 老客回购率 vs 2.16%基线<br>
-          • 达播GSV占比（警戒线：25%）<br>
-          • 新客入会率（目标：56%）<br>
-          • 退货率（达播单独监控）
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== RISK ASSESSMENT ===== -->
-  <div class="section">
-    <div class="section-header">
-      <div style="font-size:24px;">🚨</div>
-      <span class="step-title">风险评估矩阵</span>
-    </div>
-
-    <div class="data-table-wrap">
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr><th>风险项</th><th>影响维度</th><th>概率</th><th>影响程度</th><th>应对策略</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>回购率继续下滑</b></td>
-              <td>老客GSV ¥1,744万</td>
-              <td><span class="tag tag-red">高</span></td>
-              <td>每降0.1pp → 少¥8万</td>
-              <td>CRM加推2轮触达 + offer深度</td>
-            </tr>
-            <tr>
-              <td><b>达播排期不稳</b></td>
-              <td>新客GSV ¥917万</td>
-              <td><span class="tag tag-orange">中</span></td>
-              <td>每少1场 → 少¥50万</td>
-              <td>提前45天锁定 + 多达人备选</td>
-            </tr>
-            <tr>
-              <td><b>购物金蓄水失效</b></td>
-              <td>会员GSV ¥2,232万</td>
-              <td><span class="tag tag-red">确定</span></td>
-              <td>会员占比 -9.1pp</td>
-              <td>会员专属券 + 赠品替代机制</td>
-            </tr>
-            <tr>
-              <td><b>淘客渠道收缩</b></td>
-              <td>新客GSV ¥485万</td>
-              <td><span class="tag tag-orange">中</span></td>
-              <td>Gap ¥90万</td>
-              <td>T1/T2/T4/TK机制加码</td>
-            </tr>
-            <tr>
-              <td><b>AUS无法维持</b></td>
-              <td>全店GSV ¥3,991万</td>
-              <td><span class="tag tag-orange">中</span></td>
-              <td>每降¥1 → 少¥20万</td>
-              <td>商品组合优化 + 连带率提升</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== FOOTER ===== -->
-  <div class="footer">
-    <p>数据来源：芙清CRM Dashboard · 生意参谋 · 26年618拆解模型 v0428</p>
-    <p style="margin-top:4px;">口径说明：剔购物金 | 时间窗口 5/6-6/20 | 已购客TTL = 4,112,655人</p>
-    <p style="margin-top:8px;color:var(--accent);">* "假设回购率不掉"参照Y25 618老客回购率 2.57% 计算</p>
-  </div>
-
+<!-- ===== BANNER ===== -->
+<div class="banner">
+<div class="badge">📊 大促目标拆解</div>
+<h1>2026年618天猫用户目标拆解</h1>
+<div class="subtitle">数据口径：剔购物金 | 时间窗口：2026年5月6日 – 2026年6月20日</div>
+<div class="meta-row">
+<div class="meta-item"><span class="icon">🏷️</span> 品牌：芙清</div>
+<div class="meta-item"><span class="icon">📅</span> 制表日期：2026-04-28</div>
+<div class="meta-item"><span class="icon">🔄</span> 参考基准：Y25 618 / D11 / Q1</div>
+<div class="meta-item"></div>
 </div>
+</div>
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<div class="section">
+<div class="section-header">
+<span style="font-size:24px;">📌</span>
+<span class="step-title">核心结论</span>
+</div>
+<div class="insight-box warning">
+<div class="title">⚠️ 目标 ¥3,991万，YOY+0.8% — 达成有压力，需主动干预</div>
+<div class="desc">
+        预估全店GSV ¥3,991万（vs Y25 618 ¥3,959万），增幅拉平，主要核心矛盾：人数缩小（-8.7%）vs 客单价提升（+10.4%）。增长完全依赖AUS（客单价）拉动而非人群扩大老客回购率从 2.57% 降至 2.16%（购物金剔除影响），新客人数预估下降 15.8%核心：提升用户回购率、拉高AUS北极星指标（压力位）1.全店AUS 202.8元2.老客回购率 2.3%3.达播新客AUS 591.2元（货架AUS 195元）4.会员支撑点 56%</div>
+</div>
+<div class="kpi-grid">
+<div class="kpi-card">
+<div class="label">全店GSV目标</div>
+<div class="value">¥3,991万</div>
+<div class="change up">▲ 0.8% vs Y25</div>
+<div class="note">Y24: ¥2,301万 (+73.4%)</div>
+</div>
+<div class="kpi-card">
+<div class="label">老客GSV</div>
+<div class="value">¥1,744万</div>
+<div class="change up">▲ 11.0% vs Y25</div>
+<div class="note">占比 43.7% | 回购率 2.16%</div>
+</div>
+<div class="kpi-card">
+<div class="label">新客GSV</div>
+<div class="value">¥2,247万</div>
+<div class="change down">▼ 5.9% vs Y25</div>
+<div class="note">占比 56.3% | 人数 -15.8%</div>
+</div>
+<div class="kpi-card">
+<div class="label">会员GSV</div>
+<div class="value">¥2,232万</div>
+<div class="change down">▼ 13.4% vs Y25</div>
+<div class="note">占比 55.9% | 需56%入会率</div>
+</div>
+</div>
+</div>
+<!-- ===== STEP 1: 拍目标 ===== -->
+<div class="section">
+<div class="section-header">
+<div class="step-num">1</div>
+<span class="step-title">拍目标：总目标 vs 历史对标</span>
+<span class="step-sub">Step 1 / 4</span>
+</div>
+<div class="data-table-wrap">
+<div class="table-title">📋 全店总目标概览</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Y26 618预估</th>
+<th>Y25 618</th>
+<th>Y24 618</th>
+<th>YOY(Y25)</th>
+<th>25 vs 24</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>全店GSV</b></td>
+<td class="num">¥39,909,904</td>
+<td class="num">¥39,589,458</td>
+<td class="num">¥23,011,199</td>
+<td class="num up">+0.8%</td>
+<td class="num up">+72.0%</td>
+</tr>
+<tr>
+<td><b>全店人数</b></td>
+<td class="num">196,788</td>
+<td class="num">215,486</td>
+<td class="num">220,380</td>
+<td class="num down">-8.7%</td>
+<td class="num down">-2.2%</td>
+</tr>
+<tr>
+<td><b>全店AUS</b></td>
+<td class="num">¥202.8</td>
+<td class="num">¥183.7</td>
+<td class="num">¥104.4</td>
+<td class="num up">+10.4%</td>
+<td class="num up">+76.0%</td>
+</tr>
+<tr>
+<td>老客GSV</td>
+<td class="num">¥17,436,331</td>
+<td class="num">¥15,703,489</td>
+<td class="num">¥10,560,503</td>
+<td class="num up">+11.0%</td>
+<td class="num up">+48.7%</td>
+</tr>
+<tr>
+<td>老客占比</td>
+<td class="num">43.7%</td>
+<td class="num">39.7%</td>
+<td class="num">45.9%</td>
+<td class="num up">+4.0pp</td>
+<td class="num down">-6.2pp</td>
+</tr>
+<tr>
+<td>新客GSV</td>
+<td class="num">¥22,473,573</td>
+<td class="num">¥23,885,969</td>
+<td class="num">¥12,450,697</td>
+<td class="num down">-5.9%</td>
+<td class="num up">+91.8%</td>
+</tr>
+<tr>
+<td>会员GSV</td>
+<td class="num">¥22,318,539</td>
+<td class="num">¥25,758,783</td>
+<td class="num">¥13,556,081</td>
+<td class="num down">-13.4%</td>
+<td class="num up">+90.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="col2">
+<div class="insight-box info">
+<div class="title">📈 增长逻辑：AUS驱动，非人群驱动</div>
+<div class="desc">全店人数从 21.5万 → 19.7万（-8.7%），但AUS从 ¥183.7 → ¥202.8（+10.4%）。增长引擎由"卖更多货"变为"卖更贵的货"：核心：1.提客单价-品类打卡礼、会员挑战计划2.搞连带-品类打卡礼、短信关联推荐3.达播人群单独召回</div>
+</div>
+<div class="insight-box warning">
+<div class="title">⚠️ 会员贡献承压</div>
+<div class="desc">会员GSV同比下降 13.4%，占比从 65.1% → 55.9%。目标需56%入会率支撑。购物金剔除对会员GSV口径影响显著。核心：1.妆品派样不下架2.参与U先所有公域3.品类打卡礼+0.01再前置</div>
+</div>
+</div>
+</div>
+<!-- ===== STEP 2: 做预估 ===== -->
+<div class="section">
+<div class="section-header">
+<div class="step-num">2</div>
+<span class="step-title">做预估：老客 · 新客拆解</span>
+<span class="step-sub">Step 2 / 4</span>
+</div>
+<!-- New Customer Breakdown -->
+<div class="data-table-wrap">
+<div class="table-title">🆕 新客渠道拆解 — 26年618预估</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>渠道</th>
+<th>预估GSV</th>
+<th>预估人数</th>
+<th>人数增长率</th>
+<th>预估AUS</th>
+<th>AUS增长率</th>
+<th>参考逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>货架</b></td>
+<td class="num">¥5,771,486</td>
+<td class="num">29,599</td>
+<td class="num down">-12.5%</td>
+<td class="num">¥195.0</td>
+<td class="num up">+6.2%</td>
+<td><span class="tag tag-orange">参考Q1·下滑</span></td>
+</tr>
+<tr>
+<td><b>达播</b></td>
+<td class="num">¥9,171,877</td>
+<td class="num">15,514</td>
+<td class="num">持平</td>
+<td class="num">¥591.2</td>
+<td class="num">持平</td>
+<td><span class="tag tag-blue">持平去年</span></td>
+</tr>
+<tr>
+<td><b>直播(店播)</b></td>
+<td class="num">¥2,045,090</td>
+<td class="num">7,928</td>
+<td class="num down">-12.6%</td>
+<td class="num">¥258.0</td>
+<td class="num up">+14.9%</td>
+<td><span class="tag tag-orange">参考Q1·下滑</span></td>
+</tr>
+<tr>
+<td><b>淘客</b></td>
+<td class="num">¥4,845,629</td>
+<td class="num">35,967</td>
+<td class="num down">-9.1%</td>
+<td class="num">¥134.7</td>
+<td class="num down">-7.2%</td>
+<td><span class="tag tag-orange">参考Q1/D11·下滑</span></td>
+</tr>
+<tr>
+<td>微博</td>
+<td class="num">¥525,054</td>
+<td class="num">1,299</td>
+<td class="num up">+3.3%</td>
+<td class="num">¥404.2</td>
+<td class="num">持平</td>
+<td><span class="tag tag-green">微增</span></td>
+</tr>
+<tr>
+<td>U先派样</td>
+<td class="num">¥110,487</td>
+<td class="num">17,678</td>
+<td class="num down">-38.5%</td>
+<td class="num">¥6.3</td>
+<td class="num">持平</td>
+<td><span class="tag tag-red">大幅下滑</span></td>
+</tr>
+<tr>
+<td>百补派样</td>
+<td class="num">¥3,949</td>
+<td class="num">175</td>
+<td class="num down">-89.1%</td>
+<td class="num">¥22.6</td>
+<td class="num">持平</td>
+<td><span class="tag tag-red">大幅下滑</span></td>
+</tr>
+<tr style="font-weight:700;background:#F8F9FA;">
+<td><b>新客TTL</b></td>
+<td class="num"><b>¥22,473,573</b></td>
+<td class="num"><b>108,160</b></td>
+<td class="num down"><b>-15.8%</b></td>
+<td class="num"><b>¥207.8</b></td>
+<td class="num up"><b>+11.8%</b></td>
+<td><span class="tag tag-orange">参考D11·无购物金</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Old Customer RFM -->
+<div class="data-table-wrap">
+<div class="table-title">👴 老客拆解：按购买时间窗口（R区间）— 26年618预估</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>R区间</th>
+<th>2026历史人数</th>
+<th>预估回购人数</th>
+<th>预估回购率</th>
+<th>回购GSV</th>
+<th>GSV占比</th>
+<th>预估AUS</th>
+<th>购物金下线后<br/>回购率趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>近1个月已购</b></td>
+<td class="num">115,725</td>
+<td class="num">15,789</td>
+<td class="num">13.64%</td>
+<td class="num">¥3,792,778</td>
+<td class="num">21.8%</td>
+<td class="num">¥240.2</td>
+<td class="num down">-8.5%</td>
+</tr>
+<tr>
+<td><b>近2-3个月已购</b></td>
+<td class="num">190,100</td>
+<td class="num">18,322</td>
+<td class="num">9.64%</td>
+<td class="num">¥5,113,342</td>
+<td class="num">29.3%</td>
+<td class="num">¥279.1</td>
+<td class="num down">-28.9%</td>
+</tr>
+<tr>
+<td>近4-6个月已购</td>
+<td class="num">226,306</td>
+<td class="num">12,539</td>
+<td class="num">5.54%</td>
+<td class="num">¥2,166,943</td>
+<td class="num">12.4%</td>
+<td class="num">¥172.8</td>
+<td class="num down">-27.1%</td>
+</tr>
+<tr>
+<td>近7-12个月已购</td>
+<td class="num">505,177</td>
+<td class="num">17,799</td>
+<td class="num">3.52%</td>
+<td class="num">¥2,518,614</td>
+<td class="num">14.4%</td>
+<td class="num">¥141.5</td>
+<td class="num down">-21.9%</td>
+</tr>
+<tr>
+<td>近13-24个月已购</td>
+<td class="num">922,924</td>
+<td class="num">12,053</td>
+<td class="num">1.31%</td>
+<td class="num">¥1,905,023</td>
+<td class="num">10.9%</td>
+<td class="num">¥158.1</td>
+<td class="num up">+0.6%</td>
+</tr>
+<tr>
+<td>2年外已购</td>
+<td class="num">2,172,981</td>
+<td class="num">12,127</td>
+<td class="num">0.56%</td>
+<td class="num">¥1,939,631</td>
+<td class="num">11.1%</td>
+<td class="num">¥159.9</td>
+<td class="num up">+3.7%</td>
+</tr>
+<tr style="font-weight:700;background:#F8F9FA;">
+<td><b>已购客TTL</b></td>
+<td class="num"><b>4,112,655</b></td>
+<td class="num"><b>88,629</b></td>
+<td class="num"><b>2.16%</b></td>
+<td class="num"><b>¥17,436,331</b></td>
+<td class="num"><b>100%</b></td>
+<td class="num"><b>¥180.5</b></td>
+<td class="num down"><b>-17.8%</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="insight-box danger">
+<div class="title">🔴 核心风险：回购率从 2.57% → 2.16%，老客增量= ¥666,041</div>
+<div class="desc">
+        如果回购率不掉（按25年618同口径），老客GSV可达 ¥1,810万，比当前预估多 ¥66.6万。购物金下线是大促回购率下降的核心原因。关键策略：加大CRM触达轮次+打卡礼保客单+挑战计划，用offer深度（追2单/提AUS/追会员公域资源）弥补购物金的蓄水功能缺失。
+      </div>
+</div>
+</div>
+<!-- ===== STEP 3: 找Gap ===== -->
+<div class="section">
+<div class="section-header">
+<div class="step-num">3</div>
+<span class="step-title">找Gap：人群·渠道·回购率三维缺口</span>
+<span class="step-sub">Step 3 / 4</span>
+</div>
+<div class="col2">
+<div class="data-table-wrap">
+<div class="table-title">📊 人群维度Gap</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr><th>维度</th><th>目标</th><th>预估</th><th>Gap</th><th>达成度</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>全店GSV</td>
+<td class="num">¥3,991万</td>
+<td class="num">¥3,991万</td>
+<td class="num">—</td>
+<td><span class="tag tag-green">100%</span></td>
+</tr>
+<tr>
+<td>老客GSV</td>
+<td class="num">¥1,744万</td>
+<td class="num">¥1,810万*</td>
+<td class="num up">+¥66万</td>
+<td><span class="tag tag-green">可超额</span></td>
+</tr>
+<tr>
+<td>新客GSV</td>
+<td class="num">¥2,247万</td>
+<td class="num">¥2,247万</td>
+<td class="num">—</td>
+<td><span class="tag tag-orange">达标线</span></td>
+</tr>
+<tr>
+<td>新客人数</td>
+<td class="num">10.8万</td>
+<td class="num">10.8万</td>
+<td class="num">—</td>
+<td><span class="tag tag-red">低于Y25</span></td>
+</tr>
+<tr style="background:#FEF7E0;">
+<td>会员占比</td>
+<td class="num">55.9%</td>
+<td class="num">55.9%</td>
+<td class="num">—</td>
+<td><span class="tag tag-orange">需56%入会率</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="data-table-wrap">
+<div class="table-title">📊 渠道维度Gap</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr><th>渠道</th><th>预估GSV</th><th>Y25 GSV</th><th>Gap vs Y25</th><th>风险</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>货架</td><td class="num">¥577万</td><td class="num">¥621万</td><td class="num down">-¥44万</td><td><span class="tag tag-orange">中</span></td>
+</tr>
+<tr style="background:#E6F4EA;">
+<td>达播</td><td class="num">¥917万</td><td class="num">¥917万</td><td class="num">持平</td><td><span class="tag tag-green">低</span></td>
+</tr>
+<tr>
+<td>直播</td><td class="num">¥205万</td><td class="num">¥204万</td><td class="num up">+¥1万</td><td><span class="tag tag-orange">中</span></td>
+</tr>
+<tr>
+<td>淘客</td><td class="num">¥485万</td><td class="num">¥574万</td><td class="num down">-¥90万</td><td><span class="tag tag-red">高</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="col2" style="margin-top:16px;">
+<div class="insight-box warning">
+<div class="title">⚠️ 新客人数萎缩 -15.8%</div>
+<div class="desc">全渠道新客人数普遍下滑。核心原因：购物金剔除后，新客获取口径收窄。货架、淘客增速转负（Q1趋势确认），U先/百补派样大幅收缩（-38.5%/-89.1%）。</div>
+</div>
+<div class="insight-box info">
+<div class="title">💡 老客回购Gap：¥66.6万 = 机会空间</div>
+<div class="desc">按"假设回购率不掉"计算，老客GSV可额外贡献 ¥66.6万。近1-3个月活跃老客（30.6万人）是核心触达池。提升回购率 0.5pp，即可回补 ¥89万。</div>
+</div>
+</div>
+</div>
+<!-- ===== STEP 4: 争机制 ===== -->
+<div class="section">
+<div class="section-header">
+<div class="step-num">4</div>
+<span class="step-title">策略倾向：四大战场策略</span>
+<span class="step-sub">Step 4 / 4</span>
+</div>
+<div class="col2">
+<div class="insight-box success">
+<div class="title">🎯 战场一：老客保回购（¥66.6万 Gap）</div>
+<div class="desc">
+          目标：回购率从 2.16% → 2.57%（拉平Y25）
+          策略：• 近1-3月活跃老客（30.6万人）加推3轮触达  • 会员专属权益：品类打卡礼、公域挑战计划
+          • 品类打卡礼+挑战计划，二次追踪
+          • 达播后老客召回</div>
+</div>
+<div class="insight-box info">
+<div class="title">🎯 战场二：达播人群入召回池</div>
+<div class="desc">
+          目标：达播保回购
+          策略：
+          • 达播当天：捞近半年达播人群-回购提醒
+          • 达播后7天：关联推荐产品</div>
+</div>
+<div class="insight-box warning">
+<div class="title">🎯 战场三：新客补充战</div>
+<div class="desc">
+          目标：淘客GSV 从 ¥485万 → ¥574万（拉平Y25）
+          策略：
+          • 货架端：妆品小样，持续派样-核心追踪新客回购率
+          • 达播端：聚焦浏览未购人群-集中推送达播信息
+          • 公域：参与所有的能够参与的618派样活动+云台短信截流竞品人群-引流拉新</div>
+</div>
+<div class="insight-box danger">
+<div class="title">🎯 战场四：会员渗透战（56%入会率保卫）</div>
+<div class="desc">
+          目标：会员GSV ¥2,232万（占比 55.9%）
+          策略：
+          • U先派样+品牌会员俱乐部所有资源参与 → 入会转化链路强化
+          • 店播：0.01+会员加赠浮点
+          • 货架：首页0.01入会引导+公域挑战计划</div>
+</div>
+</div>
+</div>
+<!-- ===== RFM Benchmark Section ===== -->
+<div class="section">
+<div class="section-header">
+<div style="font-size:24px;">📈</div>
+<span class="step-title">参考对标：三场大促RFM象限对比</span>
+<span class="step-sub">历史参考</span>
+</div>
+<div class="data-table-wrap">
+<div class="table-title">RFM八象限回购率 | Y25 618 vs Y25 D11 vs Y26 38（最近活动）</div>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>象限</th>
+<th colspan="3">25年618</th>
+<th colspan="3">25年双11</th>
+<th colspan="3">26年38节</th>
+</tr>
+<tr>
+<th></th>
+<th>历史人数</th><th>回购率</th><th>GSV</th>
+<th>历史人数</th><th>回购率</th><th>GSV</th>
+<th>历史人数</th><th>回购率</th><th>GSV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重要价值</td>
+<td class="num">28,140</td><td class="num">31.3%</td><td class="num">277.3万</td>
+<td class="num">27,944</td><td class="num">30.3%</td><td class="num">278.9万</td>
+<td class="num">28,367</td><td class="num">13.4%</td><td class="num">103.3万</td>
+</tr>
+<tr>
+<td>重要保持</td>
+<td class="num">77,684</td><td class="num">8.1%</td><td class="num">151.1万</td>
+<td class="num">97,002</td><td class="num">8.8%</td><td class="num">236.5万</td>
+<td class="num">113,104</td><td class="num">2.7%</td><td class="num">78.6万</td>
+</tr>
+<tr>
+<td>重要发展</td>
+<td class="num">10,234</td><td class="num">21.2%</td><td class="num">104.1万</td>
+<td class="num">11,265</td><td class="num">19.4%</td><td class="num">194.5万</td>
+<td class="num">10,542</td><td class="num">7.3%</td><td class="num">38.2万</td>
+</tr>
+<tr>
+<td>重要挽留</td>
+<td class="num">72,059</td><td class="num">3.1%</td><td class="num">73.7万</td>
+<td class="num">88,694</td><td class="num">3.9%</td><td class="num">160.6万</td>
+<td class="num">101,004</td><td class="num">1.1%</td><td class="num">48.4万</td>
+</tr>
+<tr>
+<td>一般价值</td>
+<td class="num">38,193</td><td class="num">15.6%</td><td class="num">73.7万</td>
+<td class="num">31,141</td><td class="num">13.5%</td><td class="num">52.0万</td>
+<td class="num">22,744</td><td class="num">8.2%</td><td class="num">15.3万</td>
+</tr>
+<tr>
+<td>一般保持</td>
+<td class="num">151,997</td><td class="num">4.1%</td><td class="num">73.0万</td>
+<td class="num">176,128</td><td class="num">3.5%</td><td class="num">78.1万</td>
+<td class="num">194,981</td><td class="num">1.3%</td><td class="num">21.4万</td>
+</tr>
+<tr>
+<td>一般发展</td>
+<td class="num">239,686</td><td class="num">7.8%</td><td class="num">316.1万</td>
+<td class="num">210,710</td><td class="num">6.6%</td><td class="num">254.2万</td>
+<td class="num">199,153</td><td class="num">3.0%</td><td class="num">78.9万</td>
+</tr>
+<tr>
+<td>一般挽留</td>
+<td class="num">2,765,442</td><td class="num">1.3%</td><td class="num">498.7万</td>
+<td class="num">3,057,530</td><td class="num">1.1%</td><td class="num">525.1万</td>
+<td class="num">3,269,143</td><td class="num">0.4%</td><td class="num">154.5万</td>
+</tr>
+<tr style="font-weight:700;background:#F8F9FA;">
+<td><b>已购客TTL</b></td>
+<td class="num"><b>3,383,435</b></td><td class="num"><b>2.57%</b></td><td class="num"><b>1,567.7万</b></td>
+<td class="num"><b>3,700,414</b></td><td class="num"><b>2.19%</b></td><td class="num"><b>1,779.9万</b></td>
+<td class="num"><b>3,939,038</b></td><td class="num"><b>0.79%</b></td><td class="num"><b>538.5万</b></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="insight-box warning">
+<div class="title">📉 回购率长期趋势：大促略有下滑</div>
+<div class="desc">
+        从25年618（2.57%）→ 25年双11（2.19%），回购率略有下滑，但主要贡献金额在重要人群上，优先照顾高频次高购买人群，多轮短信触达。</div>
+</div>
+</div>
+<!-- ===== STEP 5: 落机制 ===== -->
 
+<!-- ===== RISK ASSESSMENT ===== -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+<p>数据来源：芙清CRM Dashboard · 生意参谋 · 26年618拆解模型 v0428</p>
+<p style="margin-top:4px;">口径说明：剔购物金 | 时间窗口 5/6-6/20 | 已购客TTL = 4,112,655人</p>
+<p style="margin-top:8px;color:var(--accent);">* "假设回购率不掉"参照Y25 618老客回购率 2.57% 计算</p>
+</div>
+</div>
 <script>
 (function() {
-  const STORAGE_KEY = '618_edits_v0429';
+  const STORAGE_KEY = '618_edits_v0429c';
   const SELECTORS = [
     '.banner h1', '.banner .badge', '.banner .subtitle', '.banner .meta-item',
     '.section .step-title',
@@ -1293,6 +1118,5 @@ table .neutral { color: var(--text-muted); }
   loadEdits();
 })();
 </script>
-
 </body>
 </html>
