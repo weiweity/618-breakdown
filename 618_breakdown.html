@@ -376,7 +376,20 @@ table .neutral { color: var(--text-muted); }
   </label>
   <button id="btn-save" style="display:none;padding:4px 12px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">💾 保存</button>
   <button id="btn-reset" style="display:none;padding:4px 12px;background:#D93025;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↩️ 重置</button>
+  <button id="btn-export" style="padding:4px 12px;background:#F9AB00;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">📋 导出修改</button>
   <span id="edit-status" style="font-size:11px;color:#80868B;margin-left:4px;"></span>
+</div>
+
+<!-- 导出弹窗 -->
+<div id="export-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:10000;align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:24px;border-radius:12px;max-width:600px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+    <div style="font-weight:700;font-size:16px;margin-bottom:12px;">📋 复制以下内容发给我</div>
+    <textarea id="export-textarea" style="width:100%;height:200px;font-family:monospace;font-size:12px;border:1px solid #DADCE0;border-radius:6px;padding:8px;resize:none;" readonly></textarea>
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;">
+      <button id="btn-copy" style="padding:6px 16px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;">📋 复制到剪贴板</button>
+      <button id="btn-close-modal" style="padding:6px 16px;background:#E8EAED;color:#333;border:none;border-radius:6px;cursor:pointer;font-size:13px;">关闭</button>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -1236,6 +1249,38 @@ table .neutral { color: var(--text-muted); }
       el.classList.remove('editable-modified');
     });
     statusSpan.textContent = '↩️ 已重置为原始内容';
+  });
+
+  // Export edits
+  const btnExport = document.getElementById('btn-export');
+  const exportModal = document.getElementById('export-modal');
+  const exportTextarea = document.getElementById('export-textarea');
+  const btnCopy = document.getElementById('btn-copy');
+  const btnCloseModal = document.getElementById('btn-close-modal');
+
+  btnExport.addEventListener('click', function() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved || saved === '{}') {
+      alert('还没有保存过任何修改，先开启编辑模式改一些内容并保存后再导出。');
+      return;
+    }
+    exportTextarea.value = saved;
+    exportModal.style.display = 'flex';
+  });
+
+  btnCopy.addEventListener('click', function() {
+    exportTextarea.select();
+    document.execCommand('copy');
+    btnCopy.textContent = '✅ 已复制';
+    setTimeout(() => { btnCopy.textContent = '📋 复制到剪贴板'; }, 2000);
+  });
+
+  btnCloseModal.addEventListener('click', function() {
+    exportModal.style.display = 'none';
+  });
+
+  exportModal.addEventListener('click', function(e) {
+    if (e.target === exportModal) exportModal.style.display = 'none';
   });
 
   // Toggle handler
