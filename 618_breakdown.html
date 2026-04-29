@@ -342,9 +342,42 @@ table .neutral { color: var(--text-muted); }
 .risk-bar .fill.green { background: var(--success); }
 .risk-bar .fill.orange { background: var(--warning); }
 .risk-bar .fill.red { background: var(--danger); }
+
+/* ===== Editable Mode Styles ===== */
+.editable {
+  outline: 2px dashed #FBBC05;
+  outline-offset: 2px;
+  border-radius: 2px;
+  transition: outline 0.2s, background 0.2s;
+  cursor: text;
+}
+.editable:hover {
+  outline: 2px solid #FBBC05;
+  background: rgba(251,188,5,0.08);
+}
+.editable:focus {
+  outline: 2px solid #F9AB00;
+  background: rgba(251,188,5,0.15);
+}
+.editable-modified {
+  outline: 2px solid #34A853 !important;
+  background: rgba(52,168,83,0.08) !important;
+}
 </style>
 </head>
 <body>
+
+<!-- 编辑控制栏 -->
+<div id="edit-bar" style="position:fixed;top:16px;right:16px;z-index:9999;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:10px 16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.15);border:1px solid #DADCE0;font-size:13px;">
+  <span style="font-weight:700;color:#1A73E8;">✏️ 编辑模式</span>
+  <label style="display:flex;align-items:center;gap:6px;cursor:pointer;">
+    <input type="checkbox" id="edit-toggle" style="cursor:pointer;">
+    <span>开启</span>
+  </label>
+  <button id="btn-save" style="display:none;padding:4px 12px;background:#1A73E8;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">💾 保存</button>
+  <button id="btn-reset" style="display:none;padding:4px 12px;background:#D93025;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;">↩️ 重置</button>
+  <span id="edit-status" style="font-size:11px;color:#80868B;margin-left:4px;"></span>
+</div>
 
 <div class="container">
 
@@ -1097,6 +1130,122 @@ table .neutral { color: var(--text-muted); }
   </div>
 
 </div>
+
+<script>
+(function() {
+  const STORAGE_KEY = '618_edits_v0429';
+  const SELECTORS = [
+    '.banner h1', '.banner .badge', '.banner .subtitle', '.banner .meta-item',
+    '.section .step-title',
+    '.insight-box .title', '.insight-box .desc',
+    'table.data-table tbody td',
+    '.footer p',
+    '.action-card .title', '.action-card .desc',
+    '.countdown-header', '.countdown-item .value', '.countdown-item .label'
+  ];
+
+  let isEditMode = false;
+  const editToggle = document.getElementById('edit-toggle');
+  const btnSave = document.getElementById('btn-save');
+  const btnReset = document.getElementById('btn-reset');
+  const statusSpan = document.getElementById('edit-status');
+
+  // Assign stable edit IDs and store original text
+  function initEditIds() {
+    SELECTORS.forEach((sel, selIdx) => {
+      document.querySelectorAll(sel).forEach((el, idx) => {
+        if (!el.dataset.editId) {
+          el.dataset.editId = sel.replace(/[^a-zA-Z0-9_-]/g,'') + '_' + idx;
+          el.dataset.original = el.textContent;
+        }
+      });
+    });
+  }
+
+  // Load saved edits from localStorage
+  function loadEdits() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      Object.entries(saved).forEach(([id, text]) => {
+        const el = document.querySelector('[data-edit-id="' + id + '"]');
+        if (el) {
+          el.textContent = text;
+          el.dataset.modified = '1';
+        }
+      });
+      const count = Object.keys(saved).length;
+      if (count > 0) statusSpan.textContent = '已恢复 ' + count + ' 处修改';
+    } catch (e) {}
+  }
+
+  // Toggle edit mode
+  function setEditMode(active) {
+    isEditMode = active;
+    document.querySelectorAll('[data-edit-id]').forEach(el => {
+      if (active) {
+        el.contentEditable = 'true';
+        el.classList.add('editable');
+        if (el.dataset.modified) el.classList.add('editable-modified');
+      } else {
+        el.contentEditable = 'false';
+        el.classList.remove('editable', 'editable-modified');
+      }
+    });
+    btnSave.style.display = active ? 'inline-block' : 'none';
+    btnReset.style.display = active ? 'inline-block' : 'none';
+    statusSpan.textContent = active ? '点击文字即可编辑' : (statusSpan.textContent.replace('点击文字即可编辑', '') || '');
+  }
+
+  // Track modifications
+  document.addEventListener('input', function(e) {
+    if (!isEditMode) return;
+    const el = e.target.closest('[data-edit-id]');
+    if (!el) return;
+    if (el.textContent !== el.dataset.original) {
+      el.dataset.modified = '1';
+      el.classList.add('editable-modified');
+    } else {
+      delete el.dataset.modified;
+      el.classList.remove('editable-modified');
+    }
+  });
+
+  // Save edits
+  btnSave.addEventListener('click', function() {
+    const edits = {};
+    document.querySelectorAll('[data-edit-id]').forEach(el => {
+      if (el.dataset.modified) {
+        edits[el.dataset.editId] = el.textContent;
+      }
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(edits));
+    const count = Object.keys(edits).length;
+    statusSpan.textContent = '✅ 已保存 ' + count + ' 处修改';
+    setTimeout(() => { if (!isEditMode) statusSpan.textContent = ''; }, 2000);
+  });
+
+  // Reset edits
+  btnReset.addEventListener('click', function() {
+    if (!confirm('确定要重置所有修改吗？此操作不可撤销。')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll('[data-edit-id]').forEach(el => {
+      el.textContent = el.dataset.original;
+      delete el.dataset.modified;
+      el.classList.remove('editable-modified');
+    });
+    statusSpan.textContent = '↩️ 已重置为原始内容';
+  });
+
+  // Toggle handler
+  editToggle.addEventListener('change', function() {
+    setEditMode(this.checked);
+  });
+
+  // Initialize
+  initEditIds();
+  loadEdits();
+})();
+</script>
 
 </body>
 </html>
